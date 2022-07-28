@@ -15,7 +15,7 @@ Para realização do projeto foram utilizados o React JS, Node.JS, JavaScript e 
 
    `npm install`
 
-## Execução:
+## Execução front-end:
 
 1)Utilizando yarn
 
@@ -24,6 +24,14 @@ Para realização do projeto foram utilizados o React JS, Node.JS, JavaScript e 
 2)Utilizando npm
 
    `npm start`
+   
+## Execução back-end
+
+Utilizando yarn
+
+   `yarn dev`
+
+
    
 #### Feito por Vladson Carlos 😎
 #### Obrigado por visualizar.
