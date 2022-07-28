@@ -29,12 +29,10 @@ Para realização do projeto foram utilizados o React JS, Node.JS, JavaScript e 
    
 ## Execução back-end
 
-1º passo: npm init -y;
-2º passo: yarn install (instalar dependências);
-3º passo: yarn dev/npm run dev para rodar o servidor e ele atualizar a cada save no projeto.
+1) passo: npm init -y;
+2) passo: yarn install (instalar dependências);
+3) passo: yarn dev/npm run dev para rodar o servidor e ele atualizar a cada save no projeto.
 
-
-
-   
+    
 #### Feito por Vladson Carlos 😎
 #### Obrigado por visualizar.
