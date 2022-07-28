@@ -1,6 +1,6 @@
 # your_agenda
 
-<p> Projeto realizado com intuito de criar um CRUD de atividades.</p>
+<p> Projeto realizado com intuito de criar um CRUD de atividades e mostrar no calendário.</p>
 
 ## Tecnologias 
 Para realização do projeto foram utilizados o React JS, Node.JS, JavaScript e Banco de dados MySQL.
