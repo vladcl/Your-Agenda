@@ -9,11 +9,13 @@ Para realização do projeto foram utilizados o React JS, Node.JS, JavaScript e 
 
 1)Utilizando yarn
 
-   `yarn install`
+   `yarn install --force`
 
 2)Utilizando npm
 
-   `npm install`
+   `npm install -- force`
+   
+ <p> OBS: o uso do force se fez necessário por problemas de compatibilidade com as bibliotecas, mas não afeta o desempenho da aplicação.</p>
 
 ## Execução front-end:
 
@@ -27,9 +29,10 @@ Para realização do projeto foram utilizados o React JS, Node.JS, JavaScript e 
    
 ## Execução back-end
 
-Utilizando yarn
+1º passo: npm init -y;
+2º passo: yarn install (instalar dependências);
+3º passo: yarn dev/npm run dev para rodar o servidor e ele atualizar a cada save no projeto.
 
-   `yarn dev`
 
 
    
