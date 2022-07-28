@@ -13,7 +13,7 @@ Para realização do projeto foram utilizados o React JS, Node.JS, JavaScript e 
 
 2)Utilizando npm
 
-   `npm install -- force`
+   `npm install --force`
    
  <p> OBS: o uso do force se fez necessário por problemas de compatibilidade com as bibliotecas, mas não afeta o desempenho da aplicação.</p>
 
