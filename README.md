@@ -1,4 +1,4 @@
-# your_agenda
+# Your Agenda 🗓
 
 <p> Projeto realizado com intuito de criar um CRUD de atividades e mostrar no calendário.</p>
 
