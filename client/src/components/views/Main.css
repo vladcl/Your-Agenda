@@ -1,0 +1,63 @@
+.app--container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+ 
+  .register--container {
+    padding: 10px 20px;
+    width: max-content;
+    height: max-content;
+    margin-top: 20px;
+    margin-left: 30px;
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    background-color: #008080;
+    box-shadow: 10px 11px rgb(50, 50, 50);
+  }
+  
+  .register--title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: fantasy;
+  }
+  
+  .register--input {
+    display: block;
+    margin: 10px auto;
+    padding: 7px 0;
+  }
+  
+  .register--button {
+    padding: 2px 5px;
+    margin-left: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .info {
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px #525252
+  }
+
+  .allCards {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+  }
+
+  .info2 {
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px #525252;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    align-content:center;
+  }
+
+  .calendar--link {
+    color:rgb(223, 209, 81);
+    margin-left: 2px;
+    margin-bottom: 20px;   
+    font-size: 18px;
+  }

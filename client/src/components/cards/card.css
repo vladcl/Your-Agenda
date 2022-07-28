@@ -1,0 +1,63 @@
+.card--container {
+    width: 250px;  
+    border: 3px solid #fffdfd;
+    border-radius: 5px;
+    margin: 10px;
+    margin-left: 40px;
+    padding: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    background-color: #008080;
+    box-shadow: 10px 11px rgb(50, 50, 50);
+}
+
+.card--id {
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 5px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    font-weight: 700;
+    padding: 3px;
+    font-family: monospace;
+    float: right
+}
+
+.card--title {
+    display: inline;
+    text-transform: capitalize;
+}
+
+.card--description {
+    margin-top: 10px;
+    margin-left: 25px;
+    text-transform: uppercase;
+    color:white;
+    font-weight: bold;
+}
+
+.card--dateAndHourInitial {
+    margin-top: 0px;
+    margin-left: 25px;
+    color:white;
+    font-weight: bold;
+    
+}
+
+.card--dateAndHourFinal {
+    margin-top: 0px;
+    margin-left: 25px;
+    color:white;
+    font-weight: bold;
+}
+
+.card--status {
+    margin-top: 0px;
+    margin-left: 25px;
+    text-transform: uppercase;
+    color:rgb(220, 123, 62);
+    font-weight: bold;
+    margin-bottom: 10px;    
+}
+

@@ -1,0 +1,39 @@
+.register {
+  width: 200px;
+  height: max-content;
+  margin: auto;
+  background-color: #008080;
+  border: 3px solid rgb(255, 255, 255);
+  padding: 20px 15px;
+  margin-top: 50px;
+  border-radius: 7px;
+  font-family: Roboto, sans-serif;
+  box-shadow: 10px 11px rgb(0 0 0 / 70%);
+  }
+  h1 {
+    margin: 0;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  
+  
+ 
+.form--field {
+    display: inline-block;
+    padding: 5px;
+    margin-top: 2%;
+    transition: all 0.2s ease-in-out;
+    align-content: center;
+}
+
+  .name {
+    font-style: italic;
+    color:black;
+  }  
+
+  
+  .button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+  }
