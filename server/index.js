@@ -1,8 +1,7 @@
 const express = require("express");
 const app = express();
 const mysql = require("mysql2");
-const cors = require('cors');
-
+const cors = require('cors')
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -10,11 +9,15 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
+
 app.use(cors({
-    origin: ['http://localhost:3000'],
-    methods: ["GET", "PUT", "POST", "DELETE"],
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
     credentials: true,
+
 }));
+
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,7 +28,8 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
     cookie: {
-        expires: 60 * 60 * 24
+        expires: 1000 * 60 * 60 * 24,
+        sameSite: 'strict',
     },
 }))
 
@@ -74,7 +78,7 @@ app.post('/login', (req, res) => {
                 bcrypt.compare(password, result[0].password, (err, response) => {
                     if (response) {
                         req.session.user = result;
-                        console.logo(req.session.user)
+                        console.log(req.session.user)
                         res.send(result)
                     } else {
                         res.send({ message: "Combinação usuário/senha incorreta!" })
@@ -89,7 +93,7 @@ app.post('/login', (req, res) => {
 
 app.get('/login', (req, res) => {
     if (req.session.user) {
-        res.send({ loggedIn: true, email: req.body.email })
+        res.send({ loggedIn: true, user: req.body.user })
     } else {
         res.send({ loggedIn: false })
     }
