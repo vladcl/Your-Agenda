@@ -18,12 +18,14 @@ function Login() {
             email: email,
             password: password,
         }).then((response) => {
+
             if (!response.data.auth) {
                 setLoginStatus(false);
             } else {
                 localStorage.setItem('token', response.data.token)
                 setLoginStatus(true);
             }
+
 
         });
     };
@@ -34,8 +36,7 @@ function Login() {
                 'x-access-token': localStorage.getItem('token'),
             },
         }).then((response) => {
-            console.log(response);
-            if (response.data.auth === true) {
+            if (response.data.token !== null) {
                 navigate('/agenda')
             }
         })
@@ -47,21 +48,19 @@ function Login() {
         Axios.get("http://localhost:3001/login").then((response) => {
 
             if (response.data.loggedIn === true) {
-                setLoginStatus(response.data.user[0].email)
+                setLoginStatus(true)
 
             }
-
-            if (response.data.loggedIn === true) {
-
-            }
-
-
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
+
+
+
     return (
+
         <main>
             <div className='container'>
                 <h1 className='login'>Fazer Login</h1>
