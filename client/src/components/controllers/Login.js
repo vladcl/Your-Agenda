@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Axios from 'axios';
 import '../views/Login.css'
 import { useNavigate } from 'react-router-dom';
@@ -42,7 +42,7 @@ function Login() {
 
 
 
-    useEffect(() => {
+    /*useEffect(() => {
         Axios.get("http://localhost:3001/login").then((response) => {
 
             if (response.data.loggedIn === true) {
@@ -51,7 +51,7 @@ function Login() {
             }
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []) */
 
 
     return (
