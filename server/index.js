@@ -65,7 +65,7 @@ app.post('/login', (req, res) => {
                     }
                 })
             } else {
-                res.send({ message: "Usuário não cadastrao!" })
+                res.send({ message: "Usuário não cadastrado!" })
             }
         }
     )

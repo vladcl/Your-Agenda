@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
-import '../views/Login.css';
+import '../views/Login.css'
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -27,7 +27,7 @@ function Login() {
     return (
         <main>
             <div className='container'>
-                <h1>Fazer Login</h1>
+                <h1 className='login'>Fazer Login</h1>
                 <label className='name'>E-mail</label>
                 <input
                     type='text'
@@ -49,7 +49,7 @@ function Login() {
                 <div className='buttons'>
                     <button onClick={login} className='button'>Entrar</button>
                 </div>
-                <h1> {loginStatus} </h1>
+                <h1 className='loginStatus'> {loginStatus} </h1>
             </div>
         </main>
     );
