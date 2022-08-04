@@ -8,7 +8,7 @@ function Login() {
     const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
-    const [loginStatus, setLoginStatus] = useState('')
+    const [loginStatus, setLoginStatus] = useState(false)
 
     Axios.defaults.withCredentials = true;
 
@@ -18,10 +18,10 @@ function Login() {
             email: email,
             password: password,
         }).then((response) => {
-            if (response.data.message) {
-                setLoginStatus(response.data.message);
+            if (!response.data.auth) {
+                setLoginStatus(false);
             } else {
-                setLoginStatus(response.data[0].email);
+                setLoginStatus(true);
             }
 
         });
@@ -70,6 +70,11 @@ function Login() {
                 <div className='buttons'>
                     <button onClick={login} className='button'>Entrar</button>
                 </div>
+
+                {loginStatus && (
+                    <button>Checar Autenticação</button>
+                )}
+
                 <h1 className='loginStatus'> {loginStatus} </h1>
             </div>
         </main>
