@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
-    key: userID,
+    key: 'userId',
     secret: 'thisIsMySecretForEachUser',
     saveUninitialized: false,
     resave: false,
@@ -73,12 +73,11 @@ app.post('/login', (req, res) => {
             if (result.length > 0) {
                 bcrypt.compare(password, result[0].password, (err, response) => {
                     if (response) {
-                        console.log(response)
+                        req.session.user = result;
+                        console.logo(req.session.user)
                         res.send(result)
                     } else {
-                        console.log(response)
                         res.send({ message: "Combinação usuário/senha incorreta!" })
-
                     }
                 })
             } else {
@@ -86,6 +85,14 @@ app.post('/login', (req, res) => {
             }
         }
     )
+});
+
+app.get('/login', (req, res) => {
+    if (req.session.user) {
+        res.send({ loggedIn: true, email: req.body.email })
+    } else {
+        res.send({ loggedIn: false })
+    }
 })
 
 app.post('/register', (req, res) => {

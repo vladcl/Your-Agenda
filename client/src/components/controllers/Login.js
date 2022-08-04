@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import '../views/Login.css'
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,10 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [loginStatus, setLoginStatus] = useState('')
+
+
+    Axios.defaults.withCredentials = true;
+
 
     const login = () => {
         Axios.post('http://localhost:3001/login', {
@@ -23,6 +27,14 @@ function Login() {
 
         });
     };
+
+    useEffect(() => {
+        Axios.get('http://localhost:3001/login').then((response) => {
+            if (response.data.loggedIn == true) {
+                setLoginStatus(response.data[0].email)
+            }
+        });
+    }, []);
 
     return (
         <main>
