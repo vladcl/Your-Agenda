@@ -21,22 +21,38 @@ function Login() {
             if (!response.data.auth) {
                 setLoginStatus(false);
             } else {
+                localStorage.setItem('token', response.data.token)
                 setLoginStatus(true);
             }
 
         });
     };
 
+    const userAuth = () => {
+        Axios.get('http://localhost:3001/isUserAuth', {
+            headers: {
+                'x-access-token': localStorage.getItem('token'),
+            },
+        }).then((response) => {
+            console.log(response);
+            if (response.data.auth === true) {
+                navigate('/agenda')
+            }
+        })
+    }
+
+
+
     useEffect(() => {
         Axios.get("http://localhost:3001/login").then((response) => {
-            console.log(response)
+
             if (response.data.loggedIn === true) {
                 setLoginStatus(response.data.user[0].email)
-                navigate('/agenda')
+
             }
 
             if (response.data.loggedIn === true) {
-                navigate('/agenda')
+
             }
 
 
@@ -72,10 +88,10 @@ function Login() {
                 </div>
 
                 {loginStatus && (
-                    <button>Checar Autenticação</button>
+                    <button onClick={userAuth} className='button2'>Checar Autenticação</button>
                 )}
 
-                <h1 className='loginStatus'> {loginStatus} </h1>
+
             </div>
         </main>
     );

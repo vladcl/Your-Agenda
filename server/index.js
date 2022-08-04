@@ -46,7 +46,7 @@ const db = mysql.createConnection({
 
 
 const verifyJWT = (req, res, next) => {
-    const token = res.headers['x-access-token']
+    const token = req.headers['x-access-token']
 
     if (!token) {
         res.send('Parece que você não possui um token, tente novamente!')
@@ -110,13 +110,13 @@ app.post('/login', (req, res) => {
 
                         req.session.user = result;
 
-                        req.json({ auth: true, token: token, result: result })
+                        res.json({ auth: true, token: token, result: result })
                     } else {
                         res.json({ auth: false, message: "Combinação de usuário/senha inválida!" })
                     }
                 })
             } else {
-                req.json({ auth: false, message: 'Usuário não existe!' })
+                res.json({ auth: false, message: 'Usuário não existe!' })
             }
         }
     )
