@@ -3,16 +3,20 @@ const app = express();
 const mysql = require("mysql2");
 const cors = require('cors');
 
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
 app.use(cors());
 app.use(express.json());
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'vladson@TI',
+    user: 'dev',
+    password: '1dev2',
     database: 'crud_agenda',
 })
 
@@ -23,19 +27,49 @@ app.post('/registerment', (req, res) => {
 
     bcrypt.hash(password, saltRounds, (err, hash) => {
 
-        if(err) {
+        if (err) {
             console.log(err)
         }
 
-         db.query("INSERT INTO users (email, password) VALUES (?,?)", [email, hash], (err, result) => {
+        db.query("INSERT INTO user (email, password) VALUES (?,?)", [email, hash], (err, result) => {
             console.log(err);
-            }
+        }
         );
 
-        res.send({msg: "Ok!"})
+        res.send({ msg: "Ok!" })
     })
-   
+
 });
+
+app.post('/login', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    db.query(
+        "SELECT * FROM user WHERE email = ?;",
+        email,
+        (err, result) => {
+            if (err) {
+                res.send({ err: err });
+            }
+
+            if (result.length > 0) {
+                bcrypt.compare(password, result[0].password, (err, response) => {
+                    if (response) {
+                        console.log(response)
+                        res.send(result)
+                    } else {
+                        console.log(response)
+                        res.send({ message: "Combinação usuário/senha incorreta!" })
+
+                    }
+                })
+            } else {
+                res.send({ message: "Usuário não cadastrao!" })
+            }
+        }
+    )
+})
 
 app.post('/register', (req, res) => {
     const { name } = req.body;
@@ -51,34 +85,6 @@ app.post('/register', (req, res) => {
         else res.send(result);
     });
 });
-
-app.post('/login', (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-
-    db.query(
-        "SELECT * FROM users WHERE email = ?;",
-        email,
-        (err, result) => {
-            if (err) {
-                res.send({err: err});
-            }
-
-            if (result.length > 0) {
-                bcrypt.compare(password, result[0].password, (err, response) => {
-                    if(response) {
-                        res.send(result)
-                    } else {
-                        res.status(404).send('Usuário não existe!');
-                        
-                    }
-                })
-            } else {
-                res.status(404).send('Usuário não existe!');
-            }
-        }
-    )
-})
 
 app.get('/getCards', (req, res) => {
 
@@ -99,18 +105,18 @@ app.get('/getCalendar', (req, res) => {
         if (err) console.log(err)
         else {
 
-                      
+
             const dados_Calendar = [];
 
             let dados_do_banco = result;
-            for (let i = 0; i<dados_do_banco.length; i++) {
+            for (let i = 0; i < dados_do_banco.length; i++) {
                 const novo_objet = {
                     title:
-                    `Evento: ${dados_do_banco[i].name}                 
+                        `Evento: ${dados_do_banco[i].name}                 
                      Status: ${dados_do_banco[i].status}
                     Descrição: ${dados_do_banco[i].description}`,
-                    start:dados_do_banco[i].date_and_hour_initial,
-                    end:dados_do_banco[i].date_and_hour_final,
+                    start: dados_do_banco[i].date_and_hour_initial,
+                    end: dados_do_banco[i].date_and_hour_final,
                 }
                 dados_Calendar.push(novo_objet);
             } res.send(dados_Calendar);
