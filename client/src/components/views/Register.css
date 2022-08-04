@@ -1,5 +1,5 @@
 .register {
-  width: 200px;
+  width: 285px;
   height: max-content;
   margin: auto;
   background-color: #008080;
@@ -37,3 +37,7 @@
     margin-bottom: 20px;
     padding: 5px 10px;
   }
+
+.registerName {
+  text-align: center;
+}

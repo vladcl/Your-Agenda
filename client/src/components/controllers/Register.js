@@ -27,7 +27,7 @@ function Register() {
         <main>
             <div className='register'>
                 <div className='registration'>
-                    <h1>Cadastro</h1>
+                    <h1 className="registerName">Cadastro</h1>
                     <label className="name">E-mail</label>
                     <input type='text' placeholder='Digite o seu e-mail' className="form--field" onChange={(e) => { setEmailReg(e.target.value) }} />
                     <label className="name">Password</label>
