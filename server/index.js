@@ -10,8 +10,25 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:3000'],
+    methods: ["GET", "PUT", "POST", "DELETE"],
+    credentials: true,
+}));
 app.use(express.json());
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({
+    key: userID,
+    secret: 'thisIsMySecretForEachUser',
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        expires: 60 * 60 * 24
+    },
+}))
+
 
 const db = mysql.createConnection({
     host: 'localhost',
