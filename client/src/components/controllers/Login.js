@@ -18,14 +18,14 @@ function Login() {
             email: email,
             password: password,
         }).then((response) => {
-
+            console.log(response)
             if (!response.data.auth) {
                 setLoginStatus(false);
             } else {
                 localStorage.setItem('token', response.data.token)
                 setLoginStatus(true);
             }
-
+            console.log(loginStatus)
 
         });
     };
@@ -36,9 +36,7 @@ function Login() {
                 'x-access-token': localStorage.getItem('token'),
             },
         }).then((response) => {
-            if (response.data.token !== null) {
-                navigate('/agenda')
-            }
+            console.log(response);
         })
     }
 
@@ -48,15 +46,12 @@ function Login() {
         Axios.get("http://localhost:3001/login").then((response) => {
 
             if (response.data.loggedIn === true) {
-                setLoginStatus(true)
+                setLoginStatus(response.data.user[0].email)
 
             }
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-
-
 
 
     return (
