@@ -10,7 +10,6 @@ function Login() {
     const [password, setPassword] = useState('')
     const [loginStatus, setLoginStatus] = useState('')
 
-
     Axios.defaults.withCredentials = true;
 
 
@@ -30,11 +29,20 @@ function Login() {
 
     useEffect(() => {
         Axios.get("http://localhost:3001/login").then((response) => {
+            console.log(response)
             if (response.data.loggedIn === true) {
-                setLoginStatus(response.data[0].email)
+                setLoginStatus(response.data.user[0].email)
+                navigate('/agenda')
             }
+
+            if (response.data.loggedIn === true) {
+                navigate('/agenda')
+            }
+
+
         });
-    }, []);
+    }, [])
+
 
     return (
         <main>

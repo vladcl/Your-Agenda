@@ -27,6 +27,7 @@ app.use(session({
     secret: 'thisIsMySecretForEachUser',
     saveUninitialized: false,
     resave: false,
+    proxy: true,
     cookie: {
         expires: 1000 * 60 * 60 * 24,
         sameSite: 'strict',
@@ -93,9 +94,9 @@ app.post('/login', (req, res) => {
 
 app.get('/login', (req, res) => {
     if (req.session.user) {
-        res.send({ loggedIn: true, user: req.body.user })
+        res.send({ loggedIn: true, user: req.session.user });
     } else {
-        res.send({ loggedIn: false })
+        res.send({ loggedIn: false });
     }
 })
 
