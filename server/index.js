@@ -99,6 +99,27 @@ app.post('/login', (req, res) => {
     )
 });
 
+const verifyJWT = (req, res, next) => {
+    const token = res.headers['x-access-token']
+
+    if (!token) {
+        res.send('Parece que você não possui um token, tente novamente!')
+    } else {
+        jwt.verify(token, "jwtTestSecret", (err, decoded) => {
+            if (err) {
+                res.json({ auth: false, message: "A autenticação falhou!" })
+            } else {
+                req.userId = decoded.id;
+                next();
+            }
+        })
+    }
+}
+
+app.get('/isUserAuth', verifyJWT, (req, res) => {
+    res.send('Muito bem! Você está autenticado!')
+})
+
 app.get('/login', (req, res) => {
     if (req.session.user) {
         res.send({ loggedIn: true, user: req.session.user });
