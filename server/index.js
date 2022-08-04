@@ -79,9 +79,15 @@ app.post('/login', (req, res) => {
             if (result.length > 0) {
                 bcrypt.compare(password, result[0].password, (err, response) => {
                     if (response) {
+
+                        const id = result[0].id;
+                        const token = jwt.sign({ id }, "jwtTestSecret", {
+                            expiresIn: 300,
+                        })
+
                         req.session.user = result;
-                        console.log(req.session.user)
-                        res.send(result)
+
+                        req.json({ auth: true, token: token, result: result })
                     } else {
                         res.send({ message: "Combinação usuário/senha incorreta!" })
                     }
