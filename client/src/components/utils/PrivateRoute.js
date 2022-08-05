@@ -1,11 +1,14 @@
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
+import useAuth from './auth-hook';
+import { useLocation } from 'react-router-dom'
 
-const PrivateRoutes = () => {
-    let auth = { 'token': true }
+function RequireAuth({ children }) {
+    const { authed } = useAuth();
+    const location = useLocation();
 
-    return (
-        auth.token ? <Outlet /> : <Navigate to='/login' />
-    )
+    return authed === true
+        ? children
+        : <Navigate to="/login" replace state={{ path: location.pathname }} />;
 }
 
-export default PrivateRoutes
+export default RequireAuth
