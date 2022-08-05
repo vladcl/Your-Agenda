@@ -1,12 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../views/Main.css';
 import Axios from 'axios';
 import Card from '../../components/cards/card';
+import { useNavigate } from 'react-router-dom'
 
 
 
 function Main() {
+  const navigate = useNavigate();
   const [values, setValues] = useState();
   const [listActivities, setListActivities] = useState();
 
@@ -25,6 +28,10 @@ function Main() {
       date_and_hour_initial: values.date_and_hour_initial,
       date_and_hour_final: values.date_and_hour_final,
       status: values.status,
+    }, {
+      headers: {
+        'x-access-token': localStorage.getItem('token'),
+      }
     }).then(() => {
       setListActivities([
         ...listActivities,
@@ -36,16 +43,28 @@ function Main() {
           status: values.status,
         }
       ]);
-    });
+    }).catch((err) => {
+      if (err.response.status === 401) {
+        navigate('/login')
+      }
+    });;
     const select = document.getElementById('status');
-       if (select) {
-        select.value = ''
-       }
+    if (select) {
+      select.value = ''
+    }
   };
 
   useEffect(() => {
-    Axios.get('http://localhost:3001/getCards').then((response) => {
+    Axios.get('http://localhost:3001/getCards', {
+      headers: {
+        'x-access-token': localStorage.getItem('token'),
+      }
+    }).then((response) => {
       setListActivities(response.data);
+    }).catch((err) => {
+      if (err.response.status === 401) {
+        navigate('/login')
+      }
     });
   }, []);
 
@@ -94,31 +113,31 @@ function Main() {
           <option key='pendente' value='Pendente'>Pendente</option>
           <option key='cancelada' value='Cancelada'>Cancelada</option>
         </select><br></br><br></br>
-        
+
         <button onClick={() => handleClickButton()}
           className='register--button'>
           Cadastrar
         </button>
         <br />
-        <p > 
-                <Link to='/calendar' className="calendar--link"> Acessar o Calendário</Link>
-            </p>
-        
+        <p >
+          <Link to='/calendar' className="calendar--link"> Acessar o Calendário</Link>
+        </p>
+
       </div>
       <div className='allCards'>
-      {typeof listActivities !== 'undefined' && listActivities.map((value) => {
-        return <Card key={value.id}
-          listCard={listActivities}
-          setListCard={setListActivities}
-          id={value.idactivities}
-          name={value.name}
-          description={value.description}
-          date_and_hour_initial={value.date_and_hour_initial}
-          date_and_hour_final={value.date_and_hour_final}
-          status={value.status}
-        ></Card>
-      })};
-      </div>      
+        {typeof listActivities !== 'undefined' && listActivities.map((value) => {
+          return <Card key={value.id}
+            listCard={listActivities}
+            setListCard={setListActivities}
+            id={value.idactivities}
+            name={value.name}
+            description={value.description}
+            date_and_hour_initial={value.date_and_hour_initial}
+            date_and_hour_final={value.date_and_hour_final}
+            status={value.status}
+          ></Card>
+        })};
+      </div>
     </div>
   );
 };

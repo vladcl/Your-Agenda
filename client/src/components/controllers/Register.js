@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Axios from 'axios';
-import '../views/Register.css'
-import { useNavigate } from 'react-router-dom'
+import '../views/Register.css';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 
@@ -21,8 +22,6 @@ function Register() {
         });
     };
 
-
-
     return (
         <main>
             <div className='register'>
@@ -34,7 +33,9 @@ function Register() {
                     <input type='password' placeholder='Digite a sua senha' className="form--field" onChange={(e) => { setPasswordReg(e.target.value) }} />
                     <button onClick={register} className='button'>Registrar</button>
                 </div>
-
+                <p className="text2">Se já possui cadastro:
+                    <Link to='/registro' className="login--link"> Login</Link>
+                </p>
             </div>
         </main>
 

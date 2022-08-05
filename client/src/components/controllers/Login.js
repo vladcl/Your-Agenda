@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Axios from 'axios';
 import '../views/Login.css'
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function Login() {
 
@@ -11,6 +12,7 @@ function Login() {
     const [loginStatus, setLoginStatus] = useState(false)
 
     Axios.defaults.withCredentials = true;
+
 
 
     const login = () => {
@@ -25,33 +27,21 @@ function Login() {
                 localStorage.setItem('token', response.data.token)
                 setLoginStatus(true);
             }
-            console.log(loginStatus)
 
-        });
+        }).then((response) => {
+            Axios.get('http://localhost:3001/isUserAuth', {
+                headers: {
+                    'x-access-token': localStorage.getItem('token'),
+                }
+            }).then((response) => {
+                console.log(response.data)
+                if (response.data) {
+                    navigate('/agenda')
+                }
+            })
+        })
     };
 
-    const userAuth = () => {
-        Axios.get('http://localhost:3001/isUserAuth', {
-            headers: {
-                'x-access-token': localStorage.getItem('token'),
-            },
-        }).then((response) => {
-            console.log(response);
-        })
-    }
-
-
-
-    /*useEffect(() => {
-        Axios.get("http://localhost:3001/login").then((response) => {
-
-            if (response.data.loggedIn === true) {
-                setLoginStatus(response.data.user[0].email)
-
-            }
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []) */
 
 
     return (
@@ -80,12 +70,9 @@ function Login() {
                 <div className='buttons'>
                     <button onClick={login} className='button'>Entrar</button>
                 </div>
-
-                {loginStatus && (
-                    <button onClick={userAuth} className='button2'>Checar Autenticação</button>
-                )}
-
-
+                <p className="text2">Se ainda não possui cadastro:
+                    <Link to='/registro' className="registro--link"> Registre-se</Link>
+                </p>
             </div>
         </main>
     );

@@ -10,7 +10,8 @@
   font-family: Roboto, sans-serif;
   box-shadow: 10px 11px rgb(0 0 0 / 70%);
   }
-  h1 {
+
+h1 {
     margin: 0;
     text-align: left;
     margin-bottom: 10px;
@@ -26,13 +27,13 @@
     align-content: center;
 }
 
-  .name {
+.name {
     font-style: italic;
     color:black;
   }  
 
   
-  .button {
+.button {
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 5px 10px;
@@ -40,4 +41,16 @@
 
 .registerName {
   text-align: center;
+}
+
+.login--link{    
+  color: #9adfdf;
+  margin-left: 2px;
+}   
+
+.text2 {
+  font-size: 16px;
+  font-weight:300;
+  text-shadow: 2px 2px #525252;
+  color: white;
 }

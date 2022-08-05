@@ -1,27 +1,36 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'
 import Axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 export default function Calendar() {
+  const navigate = useNavigate();
+  const [listActivities, setListActivities] = useState();
 
-    const [listActivities, setListActivities] = useState();
+  useEffect(() => {
+    Axios.get('http://localhost:3001/getCalendar', {
+      headers: {
+        'x-access-token': localStorage.getItem('token'),
+      }
+    }).then((response) => {
+      setListActivities(response.data);
+    }).catch((err) => {
+      if (err.response.status === 401) {
+        navigate('/login')
+      }
+    });;
+  });
 
-    useEffect(() => {
-        Axios.get('http://localhost:3001/getCalendar').then((response) => {
-          setListActivities(response.data);
-        });
-      }, []);
-    
 
-    return (
-        <FullCalendar
-            plugins={[dayGridPlugin]}
-            initialView="dayGridMonth"
-            weekends={true}
-            events={listActivities}  
-            
-        />
-    )
+  return (
+    <FullCalendar
+      plugins={[dayGridPlugin]}
+      initialView="dayGridMonth"
+      weekends={true}
+      events={listActivities}
+
+    />
+  )
 
 }

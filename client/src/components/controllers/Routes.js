@@ -1,21 +1,24 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import React from 'react';
+import PrivateRoutes from '../utils/PrivateRoute';
 import Register from './Register';
 import Login from './Login';
 import Main from './Main';
 import Home from './Home';
 import Calendar from './Fullcalendar';
 
-export default function Router() {
+export default function Routers() {
     return (
-        <BrowserRouter>
+        <Router>
             <Routes>
                 <Route index element={<Home />} />
-                <Route path='/registro' element={<Register />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/agenda' element={<Main />} />
-                <Route path='/calendar' element={<Calendar />} />
+                <Route element={<Register />} path='/registro' />
+                <Route element={<Login />} path='/login' />
+                <Route element={<PrivateRoutes />}>
+                    <Route element={<Main />} path='/agenda' />
+                    <Route element={<Calendar />} path='/calendar' />
+                </Route>
             </Routes>
-        </BrowserRouter>
+        </Router>
     )
 }
