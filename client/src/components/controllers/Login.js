@@ -70,7 +70,7 @@ function Login() {
                 <div className='buttons'>
                     <button onClick={login} className='button'>Entrar</button>
                 </div>
-                <p className="text2">Se ainda não possui cadastro:
+                <p className="text4">Se ainda não possui cadastro:
                     <Link to='/registro' className="registro--link"> Registre-se</Link>
                 </p>
             </div>

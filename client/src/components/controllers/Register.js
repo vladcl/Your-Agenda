@@ -33,8 +33,8 @@ function Register() {
                     <input type='password' placeholder='Digite a sua senha' className="form--field" onChange={(e) => { setPasswordReg(e.target.value) }} />
                     <button onClick={register} className='button'>Registrar</button>
                 </div>
-                <p className="text2">Se já possui cadastro:
-                    <Link to='/registro' className="login--link"> Login</Link>
+                <p className="text3">Se já possui cadastro:
+                    <Link to='/login' className="login--link"> Login</Link>
                 </p>
             </div>
         </main>
