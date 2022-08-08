@@ -17,6 +17,7 @@ export default function Calendar() {
       setListActivities(response.data);
     }).catch((err) => {
       if (err.response.status === 401) {
+        localStorage.removeItem('token')
         navigate('/login')
       }
     });;

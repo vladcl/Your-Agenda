@@ -1,27 +1,25 @@
-import * as React from "react";
+import React, { useState, useContext } from "react";
 
-const authContext = React.createContext();
+const AuthContext = React.createContext({
+    isAuthenticated: false,
+    login: () => { },
+});
 
-function useAuth() {
-    const [authed, setAuthed] = React.useState(false);
-
-    return {
-        authed,
-        login() {
-            return new Promise((res) => {
-                setAuthed(true);
-                res();
-            });
-        },
-    };
+export function useAuth() {
+    return useContext(AuthContext);
 }
 
-export function AuthProvider({ children }) {
-    const auth = useAuth();
+export const AuthProvider = ({ children }) => {
+    const [isAuthenticated, setAuthenticated] = useState(() => {
+        const token = localStorage.getItem("token");
+        return token !== null;
+    });
 
-    return <authContext.Provider value={auth}>{children}</authContext.Provider>;
-}
+    const login = () => setAuthenticated(true);
 
-export default function AuthConsumer() {
-    return React.useContext(authContext);
-}
+    return (
+        <AuthContext.Provider value={{ isAuthenticated, login }}>
+            {children}
+        </AuthContext.Provider>
+    );
+};

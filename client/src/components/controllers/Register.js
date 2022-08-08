@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from 'axios';
 import '../views/Register.css';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,14 @@ function Register() {
     const navigate = useNavigate()
     const [emailReg, setEmailReg] = useState('')
     const [passwordReg, setPasswordReg] = useState('')
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+
+        if (token !== null) {
+            navigate('/agenda')
+        };
+    })
 
     const register = () => {
         Axios.post('http://localhost:3001/registerment', {

@@ -1,10 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import '../views/Login.css'
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import useAuth from '../utils/auth-hook'
+
+
 
 function Login() {
 
@@ -12,7 +14,14 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [loginStatus, setLoginStatus] = useState(false)
-    const { login } = useAuth();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+
+        if (token !== null) {
+            navigate('/agenda')
+        };
+    }, [])
 
 
     Axios.defaults.withCredentials = true;
@@ -20,7 +29,7 @@ function Login() {
 
 
     const Login = () => {
-        login();
+
         Axios.post('http://localhost:3001/login', {
             email: email,
             password: password,
@@ -30,21 +39,20 @@ function Login() {
 
             } else {
                 localStorage.setItem('token', response.data.token)
+                console.log(response.data)
                 setLoginStatus(true);
             }
-        }).then((response) => {
+        }).finally(() => {
             Axios.get('http://localhost:3001/isUserAuth', {
                 headers: {
                     'x-access-token': localStorage.getItem('token'),
                 }
-            }).then(() => {
-                navigate("/dashboard");
-            });
+            }).then((response) => {
+                navigate('/agenda')
+            })
         })
+
     }
-
-
-
 
 
 
