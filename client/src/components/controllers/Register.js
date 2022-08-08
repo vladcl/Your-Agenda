@@ -49,7 +49,7 @@ function Register() {
                             className="form--field"
                             required='required'
                             pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@+#$])[a-zA-Z0-9@+#$]{8,50}$"
-                            title='A senha deve possuir no mínimo 8 carecteres, uma letra maíuscula, um número e um caracter especial.'
+                            title='A senha deve possuir no mínimo 8 carecteres.'
                             minLength={8}
                             onChange={(e) => { setPasswordReg(e.target.value) }} />
                         <button onClick={register} className='button'>Registrar</button>

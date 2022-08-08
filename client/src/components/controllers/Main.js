@@ -125,6 +125,9 @@ function Main() {
         <p >
           <Link to='/calendar' className="calendar--link"> Acessar o Calendário</Link>
         </p>
+        <p className="text4">
+          <Link to='/logout' className="registro--link"> Sair</Link>
+        </p>
 
       </div>
       <div className='allCards'>

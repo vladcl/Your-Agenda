@@ -34,8 +34,6 @@ app.use(session({
 
 }))
 
-
-
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'dev',
@@ -133,8 +131,6 @@ const verifyJWT = (req, res, next) => {
         })
     }
 }
-
-
 
 app.get('/isUserAuth', verifyJWT, (req, res) => {
     res.send('Olá, você está autenciado!')
@@ -234,7 +230,14 @@ app.delete('/delete/:id', verifyJWT, (req, res) => {
         if (err) console.log(err);
         else res.send(result);
     });
-})
+});
+
+app.get('/logout', verifyJWT, function (req, res) {
+    clearCookie();
+    clearCookie();
+    req.session.destroy();
+    res.sendStatus(200);
+});
 
 app.listen(3001, () => {
     console.log('rodando servidor');

@@ -18,7 +18,7 @@ function Login() {
     useEffect(() => {
         const token = localStorage.getItem('token')
 
-        if (token !== null) {
+        if (token !== null || loginStatus === true) {
             navigate('/agenda')
         };
     }, [])
@@ -39,7 +39,6 @@ function Login() {
 
             } else {
                 localStorage.setItem('token', response.data.token)
-                console.log(response.data)
                 setLoginStatus(true);
             }
         }).finally(() => {
@@ -77,7 +76,7 @@ function Login() {
                     className="form--field2"
                     required='required'
                     pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@+#$])[a-zA-Z0-9@+#$]{8,50}$"
-                    title='A senha deve possuir no mínimo 8 carecteres, uma letra maíuscula, um número e um caracter especial.'
+                    title='A senha deve possuir no mínimo 8 carecteres'
                     minLength={8}
                     onChange={(e) => {
                         setPassword(e.target.value);
