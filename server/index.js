@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql2");
 const cors = require('cors');
+let validator = require('email-validator')
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -33,6 +34,8 @@ app.use(session({
 
 }))
 
+
+
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'dev',
@@ -44,20 +47,34 @@ app.post('/registerment', (req, res) => {
 
     const email = req.body.email
     const password = req.body.password
+    let errors = [];
 
-    bcrypt.hash(password, saltRounds, (err, hash) => {
+    if (validator.validate(req.body.email)) {
 
-        if (err) {
-            console.log(err)
+        if (password.length < 8) {
+            errors.push({ msg: 'Password should be atleast 8 characters' });
+            res.status(401).send('Password should be atleast 8 characters');;
+
+        } else {
+            bcrypt.hash(password, saltRounds, (err, hash) => {
+
+                if (err) {
+                    console.log(err)
+                }
+
+                db.query("INSERT INTO users (email, password) VALUES (?,?)", [email, hash], (err, result) => {
+                    console.log(err);
+                }
+                );
+
+                res.send({ msg: "Ok!" })
+            })
         }
 
-        db.query("INSERT INTO users (email, password) VALUES (?,?)", [email, hash], (err, result) => {
-            console.log(err);
-        }
-        );
+    } else {
+        res.status(400).send('Invalid Email');
+    }
 
-        res.send({ msg: "Ok!" })
-    })
 
 });
 

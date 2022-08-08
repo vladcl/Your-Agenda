@@ -1,9 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 
-const authContext = React.createContext()
+const authContext = React.createContext();
 
 function useAuth() {
-    const [authed, setAuthed] = React.useState(false)
+    const [authed, setAuthed] = React.useState(false);
 
     return {
         authed,
@@ -12,8 +12,8 @@ function useAuth() {
                 setAuthed(true);
                 res();
             });
-        }
-    }
+        },
+    };
 }
 
 export function AuthProvider({ children }) {

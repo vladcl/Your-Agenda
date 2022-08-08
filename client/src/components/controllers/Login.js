@@ -4,6 +4,7 @@ import Axios from 'axios';
 import '../views/Login.css'
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import useAuth from '../utils/auth-hook'
 
 function Login() {
 
@@ -11,17 +12,15 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [loginStatus, setLoginStatus] = useState(false)
-    const token = localStorage.getItem('token')
+    const { login } = useAuth();
 
-    if (token) {
-        navigate('/agenda')
-    }
 
     Axios.defaults.withCredentials = true;
 
 
 
-    const login = () => {
+    const Login = () => {
+        login();
         Axios.post('http://localhost:3001/login', {
             email: email,
             password: password,
@@ -38,12 +37,9 @@ function Login() {
                 headers: {
                     'x-access-token': localStorage.getItem('token'),
                 }
-            }).then((response) => {
-                console.log(response.data)
-                if (response.data) {
-                    navigate('/agenda')
-                }
-            })
+            }).then(() => {
+                navigate("/dashboard");
+            });
         })
     }
 
@@ -71,12 +67,18 @@ function Login() {
                     type='password'
                     placeholder='Digite a sua senha'
                     className="form--field2"
+                    required='required'
+                    pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@+#$])[a-zA-Z0-9@+#$]{8,50}$"
+                    title='A senha deve possuir no mínimo 8 carecteres, uma letra maíuscula, um número e um caracter especial.'
+                    minLength={8}
                     onChange={(e) => {
                         setPassword(e.target.value);
                     }}
                 />
                 <div className='buttons'>
-                    <button onClick={login} className='button'>Entrar</button>
+                    <button onClick={Login}
+                        type='submit'
+                        className='button'>Entrar</button>
                 </div>
                 <p className="text4">Se ainda não possui cadastro:
                     <Link to='/registro' className="registro--link"> Registre-se</Link>

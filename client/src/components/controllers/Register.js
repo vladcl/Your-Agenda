@@ -18,25 +18,39 @@ function Register() {
             password: passwordReg,
         }).then((response) => {
             console.log(response);
-            navigate('/login');
+            navigate('/login')
         });
     };
 
     return (
         <main>
-            <div className='register'>
-                <div className='registration'>
-                    <h1 className="registerName">Cadastro</h1>
-                    <label className="name">E-mail</label>
-                    <input type='text' placeholder='Digite o seu e-mail' className="form--field" onChange={(e) => { setEmailReg(e.target.value) }} />
-                    <label className="name">Password</label>
-                    <input type='password' placeholder='Digite a sua senha' className="form--field" onChange={(e) => { setPasswordReg(e.target.value) }} />
-                    <button onClick={register} className='button'>Registrar</button>
+            <form>
+                <div className='register'>
+                    <div className='registration'>
+                        <h1 className="registerName">Cadastro</h1>
+                        <label className="name">E-mail</label>
+                        <input type='text'
+                            placeholder='Digite o seu e-mail'
+                            className="form--field"
+                            required='required'
+                            pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                            onChange={(e) => { setEmailReg(e.target.value) }} />
+                        <label className="name">Password</label>
+                        <input type='password'
+                            placeholder='Digite a sua senha'
+                            className="form--field"
+                            required='required'
+                            pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@+#$])[a-zA-Z0-9@+#$]{8,50}$"
+                            title='A senha deve possuir no mínimo 8 carecteres, uma letra maíuscula, um número e um caracter especial.'
+                            minLength={8}
+                            onChange={(e) => { setPasswordReg(e.target.value) }} />
+                        <button onClick={register} className='button'>Registrar</button>
+                    </div>
+                    <p className="text3">Se já possui cadastro:
+                        <Link to='/login' className="login--link"> Login</Link>
+                    </p>
                 </div>
-                <p className="text3">Se já possui cadastro:
-                    <Link to='/login' className="login--link"> Login</Link>
-                </p>
-            </div>
+            </form>
         </main>
 
     )
