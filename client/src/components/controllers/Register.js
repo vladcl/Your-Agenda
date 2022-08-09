@@ -34,7 +34,7 @@ function Register() {
         <main>
             <form>
                 <div className='register'>
-                    <div className='registration'>
+                    <div>
                         <h1 className="registerName">Cadastro</h1>
                         <label className="name">E-mail</label>
                         <input type='text'
@@ -46,11 +46,11 @@ function Register() {
                         <label className="name">Password</label>
                         <input type='password'
                             placeholder='Digite a sua senha'
-                            className="form--field"
                             required='required'
                             pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@+#$])[a-zA-Z0-9@+#$]{8,50}$"
                             title='A senha deve possuir no mínimo 8 carecteres.'
                             minLength={8}
+                            className='form--field'
                             onChange={(e) => { setPasswordReg(e.target.value) }} />
                         <button onClick={register}
                             className='button--register'>Registrar</button>

@@ -31,7 +31,7 @@ export default function FormDialog(props) {
   };
 
   const handleEditActivities = () => {
-    Axios.put('http://localhost:3001/edit', {
+    Axios.put('http://localhost:3002/edit', {
       id: editValues.id,
       name: editValues.name,
       description: editValues.description,
@@ -58,11 +58,12 @@ export default function FormDialog(props) {
         navigate('/login')
       }
     });;
+    window.location.reload();
     handleClose();
   };
 
   const handleDeleteActivities = () => {
-    Axios.delete(`http://localhost:3001/delete/${editValues.id}`, {
+    Axios.delete(`http://localhost:3002/delete/${editValues.id}`, {
       headers: {
         'x-access-token': localStorage.getItem('token'),
       }
@@ -77,6 +78,7 @@ export default function FormDialog(props) {
         navigate('/login')
       }
     });;
+    window.location.reload();
     handleClose();
   };
 

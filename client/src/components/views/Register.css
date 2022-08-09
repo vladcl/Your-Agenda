@@ -16,8 +16,7 @@ h1 {
     text-align: left;
     margin-bottom: 10px;
 }
-  
-  
+    
  
 .form--field {
     display: inline-block;
@@ -25,6 +24,16 @@ h1 {
     margin-top: 2%;
     transition: all 0.2s ease-in-out;
     align-content: center;
+    text-align: center;
+}
+
+.form--field2 {
+  display: inline-block;
+  padding: 5px;
+  margin-top: 5%;
+  transition: all 0.2s ease-in-out;
+  align-content: center;
+  text-align: center;
 }
 
 .name {
@@ -55,7 +64,7 @@ h1 {
 
 
 .button--register {
-  background-color: #f44336; /* Green */
+  background-color:  rgb(220, 123, 62); 
   border: none;
   color: white;
   padding: 15px 32px;
@@ -72,11 +81,11 @@ h1 {
 }
 
 .button--register:hover {
-background-color: #f44336;
+background-color:  rgb(220, 123, 62);
 }
 
 .button--register:active {
-background-color: #f44336;
+background-color:  rgb(220, 123, 62);
 box-shadow: 0 5px #666;
 transform: translateY(4px);
 }

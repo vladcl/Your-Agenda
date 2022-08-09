@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import '../views/Main.css';
 import Axios from 'axios';
 import Card from '../../components/cards/card';
@@ -42,7 +41,7 @@ function Main() {
           date_and_hour_final: values.date_and_hour_final,
           status: values.status,
         }
-      ]);
+      ]); window.location.reload();
     }).catch((err) => {
       if (err.response.status === 401) {
         localStorage.removeItem('token')
@@ -54,7 +53,8 @@ function Main() {
     if (select) {
       select.value = ''
     }
-  };
+  }
+
 
   useEffect(() => {
     Axios.get('http://localhost:3002/getCards', {
@@ -74,6 +74,10 @@ function Main() {
   const logout = () => {
     localStorage.clear();
     navigate('/login');
+  }
+
+  const calendar = () => {
+    navigate('/calendar')
   }
 
   return (
@@ -123,13 +127,13 @@ function Main() {
         </select><br></br><br></br>
 
         <button onClick={() => handleClickButton()}
-          className='register--button'>
-          Cadastrar
+          className='button--registerCard'>
+          Cadastrar atividade
         </button>
         <br />
-        <p >
-          <Link to='/calendar' className="calendar--link"> Acessar o Calendário</Link>
-        </p>
+        <button className='button--calendar'
+          onClick={calendar} >Acesse o Calendário
+        </button>
         <br></br>
         <button
           className="button--logout"

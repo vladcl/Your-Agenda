@@ -27,6 +27,7 @@
     display: block;
     margin: 10px auto;
     padding: 7px 0;
+    text-align: center;
 }
   
 .register--button {
@@ -46,22 +47,6 @@
     grid-template-columns: auto auto auto auto;
 }
 
-.info2 {
-    font-weight: bold;
-    color: white;
-    text-shadow: 2px 2px #525252;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    align-content:center;
-}
-
-.calendar--link {
-    color:rgb(223, 209, 81);
-    margin-left: 2px;
-    margin-bottom: 20px;   
-    font-size: 18px;
-}
-
 .h1 {
 text-align: center;
 margin-bottom: 10px;
@@ -71,10 +56,10 @@ font-size: 28px;
 }
 
 .button--logout {
-        background-color: #f44336; /* Green */
+        background-color: rgb(220, 123, 62); 
         border: none;
         color: white;
-        padding: 15px 32px;
+        padding: 10px 25px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
@@ -84,15 +69,71 @@ font-size: 28px;
         margin-bottom: 3px;
         box-shadow: 4px 6px rgb(50, 50, 50);
         font-weight: bold;
+        margin-bottom: 6px;
 
 }
 
 .button--logout:hover {
-    background-color: #f44336;
+    background-color: rgb(220, 123, 62);
 }
 
 .button--logout:active {
-    background-color: #f44336;
+    background-color: rgb(220, 123, 62);
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.button--registerCard {
+    background-color: rgb(220, 123, 62);
+    border: none;
+    color: white;
+    padding: 9px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 3px;
+    box-shadow: 4px 6px rgb(50, 50, 50);
+    font-weight: bold;
+    margin-bottom: 15px;
+
+}
+
+.button--registerCard:hover {
+background-color: rgb(220, 123, 62);
+}
+
+.button--registerCard:active {
+background-color: rgb(220, 123, 62);
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+
+.button--calendar {
+    background-color: rgb(220, 123, 62); 
+    border: none;
+    color: white;
+    padding: 9px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 3px;
+    box-shadow: 4px 6px rgb(50, 50, 50);
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.button--calendar:hover {
+    background-color: rgb(220, 123, 62);
+}
+    
+.button--calendar:active {
+    background-color: rgb(220, 123, 62);
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }

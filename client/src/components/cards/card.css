@@ -56,8 +56,9 @@
     margin-top: 0px;
     margin-left: 25px;
     text-transform: uppercase;
-    color:rgb(220, 123, 62);
+    color:rgb(232, 156, 109);
     font-weight: bold;
-    margin-bottom: 10px;    
+    margin-bottom: 10px;   
+    text-shadow: black;
 }
 
