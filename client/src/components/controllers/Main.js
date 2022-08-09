@@ -71,6 +71,11 @@ function Main() {
     });
   }, []);
 
+  const logout = () => {
+    localStorage.clear();
+    navigate('/login');
+  }
+
   return (
     <div className='app--container'>
       <div className='register--container'>
@@ -125,10 +130,11 @@ function Main() {
         <p >
           <Link to='/calendar' className="calendar--link"> Acessar o Calendário</Link>
         </p>
-        <p className="text4">
-          <Link to='/logout' className="registro--link"> Sair</Link>
-        </p>
-
+        <button
+          className="button"
+          onClick={logout}
+          type='submit'> Sair
+        </button>
       </div>
       <div className='allCards'>
         {typeof listActivities !== 'undefined' && listActivities.map((value) => {

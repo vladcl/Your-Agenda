@@ -27,7 +27,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        expires: 60 * 60 * 24,
+        expires: 24 * 60 * 60 * 880,
         sameSite: 'strict'
     }
 
@@ -93,9 +93,9 @@ app.post('/login', (req, res) => {
                 bcrypt.compare(password, result[0].password, (err, response) => {
                     if (response) {
                         const id = result[0].idusers
-                        console.log(result[0])
+
                         const token = jwt.sign({ id }, "09f26e402586e2faa8da4c98a35f1b20d6b033c6097befa8be3486a829587fe2f90a832bd3ff9d42710a4da095a2ce285b009f0c3730cd9b8e1af3eb84df6611", {
-                            expiresIn: '24h',
+                            expiresIn: '60s',
                         })
 
                         req.session.user = result;
@@ -151,8 +151,7 @@ app.post('/register', verifyJWT, (req, res) => {
     const { date_and_hour_final } = req.body;
     const { status } = req.body;
     const user_id = req.userId;
-    console.log('test', req.userId)
-    console.log('test2', user_id);
+
 
     let SQL = `INSERT INTO activities (name, description, date_and_hour_initial, date_and_hour_final, status, user_id) VALUES ("${name}", "${description}", "${date_and_hour_initial}", "${date_and_hour_final}", "${status}", ${user_id})`;
 
@@ -168,7 +167,7 @@ app.post('/register', verifyJWT, (req, res) => {
 
 app.get('/getCards', verifyJWT, (req, res) => {
     const userId = req.userId
-    console.log(userId)
+
     let SQL = `SELECT * from activities WHERE user_id = "${userId}"`;
 
     db.query(SQL, (err, result) => {
@@ -230,13 +229,6 @@ app.delete('/delete/:id', verifyJWT, (req, res) => {
         if (err) console.log(err);
         else res.send(result);
     });
-});
-
-app.get('/logout', verifyJWT, function (req, res) {
-    clearCookie();
-    clearCookie();
-    req.session.destroy();
-    res.sendStatus(200);
 });
 
 app.listen(3001, () => {
