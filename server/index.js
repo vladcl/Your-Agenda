@@ -27,7 +27,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        expires: 24 * 60 * 60 * 880,
+        maxAge: 86400000,
         sameSite: 'strict'
     }
 
@@ -95,7 +95,7 @@ app.post('/login', (req, res) => {
                         const id = result[0].idusers
 
                         const token = jwt.sign({ id }, "09f26e402586e2faa8da4c98a35f1b20d6b033c6097befa8be3486a829587fe2f90a832bd3ff9d42710a4da095a2ce285b009f0c3730cd9b8e1af3eb84df6611", {
-                            expiresIn: '60s',
+                            expiresIn: '24h',
                         })
 
                         req.session.user = result;
@@ -178,13 +178,13 @@ app.get('/getCards', verifyJWT, (req, res) => {
 });
 
 app.get('/getCalendar', verifyJWT, (req, res) => {
+    const userId = req.userId
 
-    let SQL = 'SELECT * from activities';
+    let SQL = `SELECT * from activities WHERE user_id = "${userId}"`;
 
     db.query(SQL, (err, result) => {
         if (err) console.log(err)
         else {
-
 
             const dados_Calendar = [];
 
@@ -195,10 +195,10 @@ app.get('/getCalendar', verifyJWT, (req, res) => {
                         `Evento: ${dados_do_banco[i].name}                 
                      Status: ${dados_do_banco[i].status}
                     Descrição: ${dados_do_banco[i].description}
-                    groupId: ${dados_do_banco[i].user_id},`,
+                    id: ${dados_do_banco[i].user_id},`,
                     start: dados_do_banco[i].date_and_hour_initial,
                     end: dados_do_banco[i].date_and_hour_final,
-                    groupId: dados_do_banco[i].user_id,
+
                 }
                 dados_Calendar.push(novo_objeto);
             } res.send(dados_Calendar);

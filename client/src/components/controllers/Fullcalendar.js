@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -21,16 +22,29 @@ export default function Calendar() {
         navigate('/login')
       }
     });;
-  });
+  }, []);
 
 
   return (
+
     <FullCalendar
       plugins={[dayGridPlugin]}
       initialView="dayGridMonth"
       weekends={true}
       events={listActivities}
-
+      customButtons={{
+        myCustomButton: {
+          text: 'Voltar',
+          click: function () {
+            navigate('/agenda');
+          },
+        },
+      }}
+      headerToolbar={{
+        start: 'title',
+        center: 'today myCustomButton',
+        end: 'prev,next',
+      }}
     />
   )
 
