@@ -30,7 +30,7 @@ function Login() {
 
     const Login = () => {
 
-        Axios.post('http://localhost:3001/login', {
+        Axios.post('http://localhost:3002/login', {
             email: email,
             password: password,
         }).then((response) => {
@@ -42,7 +42,7 @@ function Login() {
                 setLoginStatus(true);
             }
         }).finally(() => {
-            Axios.get('http://localhost:3001/isUserAuth', {
+            Axios.get('http://localhost:3002/isUserAuth', {
                 headers: {
                     'x-access-token': localStorage.getItem('token'),
                 }
@@ -82,11 +82,13 @@ function Login() {
                         setPassword(e.target.value);
                     }}
                 />
+
                 <div className='buttons'>
                     <button onClick={Login}
                         type='submit'
-                        className='button'>Entrar</button>
+                        className='button--login'>Entrar</button>
                 </div>
+                <br></br>
                 <p className="text4">Se ainda não possui cadastro:
                     <Link to='/registro' className="registro--link"> Registre-se</Link>
                 </p>

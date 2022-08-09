@@ -21,7 +21,7 @@ function Register() {
     })
 
     const register = () => {
-        Axios.post('http://localhost:3001/registerment', {
+        Axios.post('http://localhost:3002/registerment', {
             email: emailReg,
             password: passwordReg,
         }).then((response) => {
@@ -52,8 +52,10 @@ function Register() {
                             title='A senha deve possuir no mínimo 8 carecteres.'
                             minLength={8}
                             onChange={(e) => { setPasswordReg(e.target.value) }} />
-                        <button onClick={register} className='button'>Registrar</button>
+                        <button onClick={register}
+                            className='button--register'>Registrar</button>
                     </div>
+                    <br></br>
                     <p className="text3">Se já possui cadastro:
                         <Link to='/login' className="login--link"> Login</Link>
                     </p>

@@ -53,16 +53,30 @@ h1 {
   color: white !important;
 }
 
-.toggle-password {
-  background: none;
+
+.button--register {
+  background-color: #f44336; /* Green */
   border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 8px;
   cursor: pointer;
-  /* Media query isn't shown here. */
-  font-size: var(--mobile-font-size);
-  font-weight: 300;
-  padding: 0;
-  /* Display at the top right of the container */
-  position: absolute;
-  top: 0;
-  right: 0;
+  margin-bottom: 3px;
+  box-shadow: 4px 6px rgb(50, 50, 50);
+  font-weight: bold;
+  margin-top:20px;
+}
+
+.button--register:hover {
+background-color: #f44336;
+}
+
+.button--register:active {
+background-color: #f44336;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
 }

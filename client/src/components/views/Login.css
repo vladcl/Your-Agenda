@@ -44,10 +44,32 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-.button {
-  margin-top: 20px;
-  margin-bottom: 20px;
+.button--login {
 
+    background-color: #f44336; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 3px;
+    box-shadow: 4px 6px rgb(50, 50, 50);
+    font-weight: bold;
+    margin-top:20px;
+}
+
+.button--login:hover {
+  background-color: #f44336;
+}
+
+.button--login:active {
+  background-color: #f44336;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
 .name {

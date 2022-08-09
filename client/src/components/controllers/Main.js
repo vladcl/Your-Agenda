@@ -22,7 +22,7 @@ function Main() {
   };
 
   const handleClickButton = () => {
-    Axios.post("http://localhost:3001/register", {
+    Axios.post("http://localhost:3002/register", {
       name: values.name,
       description: values.description,
       date_and_hour_initial: values.date_and_hour_initial,
@@ -57,7 +57,7 @@ function Main() {
   };
 
   useEffect(() => {
-    Axios.get('http://localhost:3001/getCards', {
+    Axios.get('http://localhost:3002/getCards', {
       headers: {
         'x-access-token': localStorage.getItem('token'),
       }
@@ -130,8 +130,9 @@ function Main() {
         <p >
           <Link to='/calendar' className="calendar--link"> Acessar o Calendário</Link>
         </p>
+        <br></br>
         <button
-          className="button"
+          className="button--logout"
           onClick={logout}
           type='submit'> Sair
         </button>

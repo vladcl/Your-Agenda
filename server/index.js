@@ -231,6 +231,6 @@ app.delete('/delete/:id', verifyJWT, (req, res) => {
     });
 });
 
-app.listen(3001, () => {
+app.listen(3002, () => {
     console.log('rodando servidor');
 });

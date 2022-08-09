@@ -69,3 +69,30 @@ color: white;
 text-shadow: 2px 2px #525252;
 font-size: 28px;
 }
+
+.button--logout {
+        background-color: #f44336; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 3px;
+        box-shadow: 4px 6px rgb(50, 50, 50);
+        font-weight: bold;
+
+}
+
+.button--logout:hover {
+    background-color: #f44336;
+}
+
+.button--logout:active {
+    background-color: #f44336;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}

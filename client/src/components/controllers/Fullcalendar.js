@@ -10,7 +10,7 @@ export default function Calendar() {
   const [listActivities, setListActivities] = useState();
 
   useEffect(() => {
-    Axios.get('http://localhost:3001/getCalendar', {
+    Axios.get('http://localhost:3002/getCalendar', {
       headers: {
         'x-access-token': localStorage.getItem('token'),
       }
