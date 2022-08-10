@@ -5,8 +5,12 @@ import Axios from 'axios';
 import '../views/Login.css'
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import * as yup from 'yup';
 
-
+const userSchema = yup.object({
+    email: yup.string().email().required('O e-mail é obrigatório!'),
+    password: yup.string().required('A senha é obrigatória!')
+})
 
 function Login() {
 
@@ -15,11 +19,14 @@ function Login() {
     const [password, setPassword] = useState('')
     const [loginStatus, setLoginStatus] = useState(false)
 
+
+
     useEffect(() => {
         const token = localStorage.getItem('token')
 
         if (token !== null || loginStatus === true) {
-            navigate('/agenda')
+            return navigate('/agenda')
+
         };
     }, [])
 

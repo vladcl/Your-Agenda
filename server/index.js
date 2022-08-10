@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql2");
 const cors = require('cors');
-let validator = require('email-validator')
+
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -10,7 +10,9 @@ const saltRounds = 10;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+
+const yup = require('yup');
 
 app.use(cors({
     credentials: true,
@@ -41,76 +43,88 @@ const db = mysql.createConnection({
     database: 'crud_agenda',
 })
 
-app.post('/registerment', (req, res) => {
+app.post('/registerment', async (req, res) => {
 
     const email = req.body.email
     const password = req.body.password
-    let errors = [];
 
-    if (validator.validate(req.body.email)) {
+    const userSchema = yup.object().shape({
+        email: yup.string().email('Por favor utilizar formato mail@me.com').required('Este campo é obrigatório!'),
+        password: yup.string().min(8).required('Este campo é obrigatório!'),
+    })
 
-        if (password.length < 8) {
-            errors.push({ msg: 'Password should be atleast 8 characters' });
-            res.status(401).send('Password should be atleast 8 characters');;
-
-        } else {
-            bcrypt.hash(password, saltRounds, (err, hash) => {
-
-                if (err) {
-                    console.log(err)
-                }
-
-                db.query("INSERT INTO users (email, password) VALUES (?,?)", [email, hash], (err, result) => {
-                    console.log(err);
-                }
-                );
-
-                res.send({ msg: "Ok!" })
-            })
-        }
-
+    if (!(await userSchema.isValid(req.body))) {
+        return res.status(400).json({
+            erro: true,
+            msg: 'ERROR: Necessário preencher todos os campos!'
+        });
     } else {
-        res.status(400).send('Invalid Email');
+
+        bcrypt.hash(password, saltRounds, (err, hash) => {
+
+            if (err) {
+                console.log(err)
+            }
+
+            db.query("INSERT INTO users (email, password) VALUES (?,?)", [email, hash], (err, result) => {
+                console.log(err);
+            }
+            );
+
+            res.send({ msg: "Ok!" })
+        })
     }
 
+})
 
-});
-
-
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    db.query(
-        "SELECT * FROM users WHERE email = ?;",
-        email,
-        (err, result) => {
-            if (err) {
-                res.send({ err: err });
+    const schemaLogin = yup.object().shape({
+        email: yup.string().email().required(),
+        password: yup.string().min(8).required(),
+    })
+
+    if (!(await schemaLogin.isValid(req.body))) {
+        return res.status(400).json({
+            erro: true,
+            msg: 'ERROR: Necessário preencher todos os campos!'
+        });
+    } else {
+        db.query(
+            "SELECT * FROM users WHERE email = ?;",
+            email,
+            (err, result) => {
+                if (err) {
+                    res.send({ err: err });
+                }
+
+                if (result.length > 0) {
+                    bcrypt.compare(password, result[0].password, (err, response) => {
+                        if (response) {
+                            const id = result[0].idusers
+
+                            const token = jwt.sign({ id }, "09f26e402586e2faa8da4c98a35f1b20d6b033c6097befa8be3486a829587fe2f90a832bd3ff9d42710a4da095a2ce285b009f0c3730cd9b8e1af3eb84df6611", {
+                                expiresIn: '24h',
+                            })
+
+                            req.session.user = result;
+
+                            res.json({ auth: true, token: token, result: result })
+                        } else {
+                            res.json({ auth: false, message: 'Combinação usuário/senha incorreta!' });
+
+                        }
+                    })
+                } else {
+                    res.json({ auth: false, message: 'Usuário não existe!' });
+                }
             }
+        )
+    }
 
-            if (result.length > 0) {
-                bcrypt.compare(password, result[0].password, (err, response) => {
-                    if (response) {
-                        const id = result[0].idusers
 
-                        const token = jwt.sign({ id }, "09f26e402586e2faa8da4c98a35f1b20d6b033c6097befa8be3486a829587fe2f90a832bd3ff9d42710a4da095a2ce285b009f0c3730cd9b8e1af3eb84df6611", {
-                            expiresIn: '24h',
-                        })
-
-                        req.session.user = result;
-
-                        res.json({ auth: true, token: token, result: result })
-                    } else {
-                        res.json({ auth: false, message: 'Combinação usuário/senha incorreta!' });
-
-                    }
-                })
-            } else {
-                res.json({ auth: false, message: 'Usuário não existe!' });
-            }
-        }
-    )
 });
 
 const verifyJWT = (req, res, next) => {

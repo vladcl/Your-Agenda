@@ -20,6 +20,8 @@ function Register() {
         };
     })
 
+
+
     const register = () => {
         Axios.post('http://localhost:3002/registerment', {
             email: emailReg,
@@ -30,14 +32,18 @@ function Register() {
         });
     };
 
+
+
     return (
         <main>
             <form>
+
                 <div className='register'>
                     <div>
                         <h1 className="registerName">Cadastro</h1>
                         <label className="name">E-mail</label>
                         <input type='text'
+                            name="email"
                             placeholder='Digite o seu e-mail'
                             className="form--field"
                             required='required'
@@ -45,6 +51,7 @@ function Register() {
                             onChange={(e) => { setEmailReg(e.target.value) }} />
                         <label className="name">Password</label>
                         <input type='password'
+                            name="password"
                             placeholder='Digite a sua senha'
                             required='required'
                             pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@+#$])[a-zA-Z0-9@+#$]{8,50}$"
